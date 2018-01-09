@@ -28,6 +28,12 @@ int dlist_insert(dlisthead_t *h, const void *data, insertway_t way);
 
 int dlist_delete(dlisthead_t *h, const void *key, cmp_t cmp);
 
+void *dlist_search(dlisthead *h, const void *key, cmp_t cmp);
+
+int dlist_isempty(dlisthead_t *h);
+
+int dlist_getfirstnode(dlisthead_t *h, void *data);
+
 void dlist_traval(const dlisthead_t *h, print_t pri);
 
 void dlist_destroy(dlisthead_t * h);

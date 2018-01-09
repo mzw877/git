@@ -7,9 +7,11 @@ int dlisthead_init(int size, dlisthead_t **l)
 {
 	dlisthead_t *h = NULL;
 
-	h = malloc(sizeof(dlisthead_t) + 100);
-	if(NULL == h)
+	h = malloc(sizeof(dlisthead_t));
+	if(NULL == h) {
+		*l = h;
 		return -1;
+	}
 	memset(h, '\0',sizeof(dlisthead_t));
 
 	h->head.prev = &h->head;
@@ -25,7 +27,7 @@ int dlist_insert(dlisthead_t *h, const void *data, insertway_t way)
 {
 	struct node_st *new = NULL;
 
-	new = calloc(1,sizeof(*new)+ h->size +100);
+	new = calloc(1,sizeof(*new)+ h->size);
 
 	memcpy(new->data, data, h->size);
 
@@ -33,13 +35,15 @@ int dlist_insert(dlisthead_t *h, const void *data, insertway_t way)
 	{
 		new->next = &h->head;
 		new->prev = h->head.prev;
-		h->head.prev = new;
+		h->head.next = new;
+		new->next->prev = new;
 	}
-	else if(way == FRONT)
+	else if(way == TAIL)
 	{
 		new->next = &h->head;
 		new->prev = h->head.prev;
 		h->head.prev = new;
+		new->prev->next = new;
 	}
 	else
 	{
