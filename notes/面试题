@@ -1,0 +1,83 @@
+1. 以下程序会输出结果
+	define SQUARE(a)((a)*(a))
+
+	int main()
+	{
+		int a = 1;
+		int b;
+		while(a < 10)
+		{
+			b = SQUARE(a++);
+			printf("%d %d\n", a, b);
+		}
+		exit(0);
+	}
+2.以下程序输出结果
+	int main()
+	{
+		char str1[] = "abc"; 
+		char str2[] = "abc"; 
+		const char str3[] = "abc";  
+		const char str4[] = "abc"; 
+		const char *str5 = "abc"; 
+		const char *str6 = "abc"; 
+		char *str7 = "abc"; 
+		char *str8 = "abc";  
+		printf("%d",str1 == str2); 
+		printf("%d",str3 == str4); 
+		printf("%d",str5 == str6); 
+		printf("%d",str7 == str8); 
+		return 0;
+	}
+3.请问下面程序有什么问题?
+int main()
+{
+    int a[60][250][1000],i,j,k;
+	   for(k=0;k<=1000;k++)
+	       for(j=0;j<250;j++)
+		        for(i=0;i<60;i++)
+				      a[i][j][k]=0;
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+答案:
+1,  3 1
+	5 9
+	7 25
+	9 49
+	因为define是纯替换a++会执行两次
+
+2, 0 0 1 1
+		str1不等于str2
+		因为两个字符串,有独立的存储空间,首地址一定不一样
+		str3不等于str4
+		const修饰的是str3/4,只代表他们的值不可以修改,地址不同
+		str5等于str6
+		const修饰的是指针本身,只代表他们的值不可修改,与值无关,因为他们都指向的是常量本身,所以地址相同
+		str7等于str8
+		因为他们都指向的是常量本身,所以地址相同
+3.该程序应该将数组定义为全局变量或者静态变量
+	因为main函数的局部变量存储在栈,栈的内存不足以放下这么大的数组,栈会溢出
