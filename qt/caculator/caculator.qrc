@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>img/arrow_back_outline_48px_1158503_easyicon.net.ico</file>
+    </qresource>
+</RCC>
